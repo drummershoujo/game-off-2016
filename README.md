@@ -9,6 +9,9 @@
   </sup>
 </div>
 
+## Charlene Remember to fill this out
+Update the README.md file to include a description of your game, how to play or download it, how to build and compile it, what dependencies it has, etc
+
 ## The Challenge
 
 You have the entire month of November to create a game *loosely* based on the theme **hacking, modding and/or augmenting**.
