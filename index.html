@@ -1,0 +1,118 @@
+<canvas id="ctx" width="500" height="800" style="border:3px solid #000000;"></canvas>
+
+<script>
+// update loop
+var ctx = document.getElementById("ctx").getContext("2d");
+ctx.font = '60px Courier New';
+
+var HEIGHT = 800;
+var WIDTH = 500;
+
+var player;
+var enemy;
+
+createPlayer = function(){
+
+	player = {
+		x:220,
+		y:780,
+		width:60,
+		height:20,
+		pressingKey:false,
+		modNum:0,
+	};
+}
+
+createEnemy = function(){
+
+	enemy = {
+		x:150,
+		y:200,
+		number:9,
+	};
+}
+
+update = function(){
+
+	ctx.clearRect(0,0,WIDTH,HEIGHT);
+	updatePlayer();
+	updateEnemy();
+}
+
+updatePlayer = function(){
+
+	drawPlayer();
+	if(player.pressingKey){
+	
+		console.log('press!');
+		enemy.number = enemy.number % player.modNum;
+	}
+}
+
+updateEnemy = function(){
+
+	drawEnemy();
+
+}
+
+drawPlayer = function(){
+
+	ctx.fillRect(player.x, player.y, player.width, player.height);
+
+}
+
+drawEnemy = function(){
+
+	ctx.fillText(enemy.number, 150, 200);
+
+}
+
+document.onkeydown = function(event){
+	player.pressingKey = true;
+	//player.modNum = event.keyCode - 48;
+	
+	switch(event.keyCode){
+		case 49 || 97:
+			player.modNum = 1;
+			break;
+		case 50 || 98:
+			player.modNum = 2;
+			break;
+		case 51 || 99:
+			player.modNum = 3;
+			break;
+		case 52 || 100:
+			player.modNum = 4;
+			break;
+		case 53 || 101:
+			player.modNum = 5;
+			break;
+		case 54 || 102:
+			player.modNum = 6;
+			break;
+		case 55 || 103:
+			player.modNum = 7;
+			break;
+		case 56 || 104:
+			player.modNum = 8;
+			break;
+		case 57 || 105:
+			player.modNum = 9;
+			break;
+		default:
+			startNewGame();
+	}
+}
+
+document.onkeyup = function(event){
+	player.pressingKey = false;
+}
+
+startNewGame = function(){
+	createPlayer();
+	createEnemy();
+}
+
+startNewGame();
+setInterval(update, 40);
+</script>
