@@ -1,7 +1,6 @@
 <canvas id="ctx" width="500" height="800" style="border:3px solid #000000;"></canvas>
 
 <script>
-// update loop
 var ctx = document.getElementById("ctx").getContext("2d");
 ctx.font = '60px Courier New';
 
@@ -10,6 +9,7 @@ var WIDTH = 500;
 
 var player;
 var enemy;
+var bullet;
 
 createPlayer = function(){
 
@@ -26,9 +26,23 @@ createPlayer = function(){
 createEnemy = function(){
 
 	enemy = {
-		x:150,
+		x:225,
 		y:200,
 		number:9,
+	};
+}
+
+
+createBullet = function(){
+
+	bullet = {
+		x:player.x,
+		y:player.y,
+		spdX:0,
+		spdY:-15,
+		width:50,
+		height:50,
+		number:player.modNum,
 	};
 }
 
@@ -37,6 +51,7 @@ update = function(){
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
 	updatePlayer();
 	updateEnemy();
+	updateBullet();
 }
 
 updatePlayer = function(){
@@ -50,9 +65,14 @@ updatePlayer = function(){
 }
 
 updateEnemy = function(){
-
 	drawEnemy();
+}
 
+updateBullet = function(){
+
+	bullet.x += bullet.spdX;
+	bullet.y += bullet.spdY;
+	drawBullet();
 }
 
 drawPlayer = function(){
@@ -63,8 +83,28 @@ drawPlayer = function(){
 
 drawEnemy = function(){
 
-	ctx.fillText(enemy.number, 150, 200);
+	var text = enemy.number;
+	var width = ctx.measureText(text).width;
+	ctx.fillText(text, enemy.x-(width/2), enemy.y+20);
+	
+	ctx.beginPath();
+	ctx.arc(enemy.x, enemy.y, 50, 0, 2*Math.PI);
+	ctx.closePath();
+	ctx.stroke();
+}
 
+drawBullet = function(){
+	
+	
+	
+	var text = bullet.number;
+	var width = ctx.measureText(text).width;
+	ctx.fillText(text, bullet.x-(width/2), bullet.y+20);
+	
+	ctx.beginPath();
+	ctx.arc(bullet.x, bullet.y, 50, 0, 2*Math.PI);
+	ctx.closePath();
+	ctx.stroke();
 }
 
 document.onkeydown = function(event){
@@ -101,16 +141,18 @@ document.onkeydown = function(event){
 			break;
 		default:
 			startNewGame();
-	}
+	}	
 }
 
 document.onkeyup = function(event){
 	player.pressingKey = false;
+	createBullet();
 }
 
 startNewGame = function(){
 	createPlayer();
 	createEnemy();
+	createBullet();
 }
 
 startNewGame();
