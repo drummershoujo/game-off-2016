@@ -9,7 +9,8 @@ var WIDTH = 500;
 
 var player;
 var enemy;
-var bullet;
+
+var bulletList = {};
 
 createPlayer = function(){
 
@@ -28,22 +29,30 @@ createEnemy = function(){
 	enemy = {
 		x:225,
 		y:200,
+		radius:50,
 		number:9,
 	};
 }
 
+Bullet = function(x,y,spdX,spdY,radius,number){
 
-createBullet = function(){
-
-	bullet = {
-		x:player.x,
-		y:player.y,
-		spdX:0,
-		spdY:-15,
-		width:50,
-		height:50,
-		number:player.modNum,
+	var bullet = {
+		id:Math.random(),
+		x:x,
+		y:y,
+		spdX:spdX,
+		spdY:spdY,
+		radius:radius,
+		number:number,
 	};
+	
+	bulletList[bullet.id] = bullet;
+}
+
+generateBullet = function(actor){
+
+	Bullet(actor.x, actor.y, 0, -15, 50, actor.modNum);
+	//Bullet(100, actor.y, 0, -15, 50, actor.modNum);
 }
 
 update = function(){
@@ -51,28 +60,47 @@ update = function(){
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
 	updatePlayer();
 	updateEnemy();
-	updateBullet();
+	
+	for(var key in bulletList)
+	{
+		updateBullet(bulletList[key]);
+		
+		var toRemove = false;
+		
+		if(testCollisionCircle(enemy, bulletList[key]))
+		{
+			console.log("colliding! " + bulletList[key].number);
+			enemy.number = enemy.number % bulletList[key].number;
+			toRemove = true;
+		}
+		
+		if(bulletList[key].y < 0)
+		{
+			console.log("out of bounds " + bulletList[key].number);
+			toRemove = true;
+		}
+		
+		if(toRemove){
+			delete bulletList[key];
+		}
+	}
 }
 
 updatePlayer = function(){
 
 	drawPlayer();
-	if(player.pressingKey){
 	
-		console.log('press!');
-		enemy.number = enemy.number % player.modNum;
-	}
 }
 
 updateEnemy = function(){
 	drawEnemy();
 }
 
-updateBullet = function(){
+updateBullet = function(bullet){
 
 	bullet.x += bullet.spdX;
 	bullet.y += bullet.spdY;
-	drawBullet();
+	drawBullet(bullet);
 }
 
 drawPlayer = function(){
@@ -93,7 +121,7 @@ drawEnemy = function(){
 	ctx.stroke();
 }
 
-drawBullet = function(){
+drawBullet = function(bullet){
 	
 	
 	
@@ -102,15 +130,17 @@ drawBullet = function(){
 	ctx.fillText(text, bullet.x-(width/2), bullet.y+20);
 	
 	ctx.beginPath();
-	ctx.arc(bullet.x, bullet.y, 50, 0, 2*Math.PI);
+	ctx.arc(bullet.x, bullet.y, bullet.radius, 0, 2*Math.PI);
 	ctx.closePath();
 	ctx.stroke();
 }
 
 document.onkeydown = function(event){
 	player.pressingKey = true;
-	//player.modNum = event.keyCode - 48;
-	
+}
+
+document.onkeyup = function(event){
+	player.pressingKey = false;
 	switch(event.keyCode){
 		case 49 || 97:
 			player.modNum = 1;
@@ -142,17 +172,22 @@ document.onkeydown = function(event){
 		default:
 			startNewGame();
 	}	
+	
+	console.log('press!' + player.modNum);
+	
+	generateBullet(player);
 }
 
-document.onkeyup = function(event){
-	player.pressingKey = false;
-	createBullet();
+testCollisionCircle = function(cir1, cir2){
+	return cir1.x <= cir2.x+cir2.radius
+		&& cir2.x <= cir1.x+cir1.radius
+		&& cir1.y <= cir2.y+cir2.radius
+		&& cir2.y <= cir1.y+cir1.radius
 }
 
 startNewGame = function(){
 	createPlayer();
 	createEnemy();
-	createBullet();
 }
 
 startNewGame();
