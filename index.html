@@ -9,6 +9,7 @@ ctx.font = '60px Courier New';
 var HEIGHT = 800;
 var WIDTH = 500;
 
+var score = 0;
 var player;
 
 var enemyList = {};
@@ -25,6 +26,7 @@ createPlayer = function(){
 		modNum:0,
 		pressingLeft:false,
 		pressingRight:false,
+		hp:500,
 	};
 }
 
@@ -67,6 +69,7 @@ generateBullet = function(actor){
 	//Bullet(100, actor.y, 0, -15, 50, actor.modNum);
 }
 
+// UPDATE LOOP
 update = function(){
 
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
@@ -100,7 +103,17 @@ update = function(){
 	
 	for(var key in enemyList){
 		updateEnemy(enemyList[key]);
+		if(enemyList[key].y > HEIGHT - enemyList[key].radius)
+		{
+			player.hp -= enemyList[key].number;
+			delete enemyList[key];
+		}
 	}
+	
+	ctx.save();
+	ctx.font = '20px Courier New';
+	ctx.fillText("Health: " + player.hp,10,30);
+	ctx.restore();
 }
 
 updatePlayer = function(){
