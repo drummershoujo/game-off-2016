@@ -91,7 +91,16 @@ update = function(){
 			if(testCollisionCircle(enemyList[key2], bulletList[key]))
 			{
 				console.log("colliding! " + bulletList[key].number);
+				var originalNumber = enemyList[key2].number;
 				enemyList[key2].number = enemyList[key2].number % bulletList[key].number;
+				
+				// If player successully modded to 0, reward player and destroy enemy.
+				if(enemyList[key2].number === 0)
+				{
+					score += originalNumber + 100;
+					delete enemyList[key2];	
+				}
+				
 				toRemove = true;
 			}
 		}
@@ -113,6 +122,7 @@ update = function(){
 	ctx.save();
 	ctx.font = '20px Courier New';
 	ctx.fillText("Health: " + player.hp,10,30);
+	ctx.fillText("Score: " + score,10,60);
 	ctx.restore();
 }
 
