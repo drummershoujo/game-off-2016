@@ -21,6 +21,8 @@ createPlayer = function(){
 		height:20,
 		pressingKey:false,
 		modNum:0,
+		pressingLeft:false,
+		pressingRight:false,
 	};
 }
 
@@ -100,7 +102,7 @@ update = function(){
 }
 
 updatePlayer = function(){
-
+	updatePlayerPosition();
 	drawPlayer();
 	
 }
@@ -150,45 +152,74 @@ drawBullet = function(bullet){
 
 document.onkeydown = function(event){
 	player.pressingKey = true;
+		
+	switch(event.which || event.keyCode){
+		case 39: //right arrow
+		case 68: //'d'
+			player.pressingRight = true;
+			break;
+		case 37: //left arrow
+		case 65: //a
+			player.pressingLeft = true;
+			break;
+	}
 }
 
 document.onkeyup = function(event){
 	player.pressingKey = false;
-	switch(event.keyCode){
+		
+	switch(event.which || event.keyCode){
 		case 49 || 97:
 			player.modNum = 1;
+			generateBullet(player);
 			break;
 		case 50 || 98:
 			player.modNum = 2;
+			generateBullet(player);
 			break;
 		case 51 || 99:
 			player.modNum = 3;
+			generateBullet(player);
 			break;
 		case 52 || 100:
 			player.modNum = 4;
+			generateBullet(player);
 			break;
 		case 53 || 101:
 			player.modNum = 5;
+			generateBullet(player);
 			break;
 		case 54 || 102:
 			player.modNum = 6;
+			generateBullet(player);
 			break;
 		case 55 || 103:
 			player.modNum = 7;
+			generateBullet(player);
 			break;
 		case 56 || 104:
 			player.modNum = 8;
+			generateBullet(player);
 			break;
 		case 57 || 105:
 			player.modNum = 9;
+			generateBullet(player);
+			break;
+		case 39: //right arrow
+		case 68: //'d'
+			player.pressingRight = false;
+			break;
+		case 37: //left arrow
+		case 65: //a
+			player.pressingLeft = false;
 			break;
 		default:
 			startNewGame();
 	}	
 	
-	console.log('press!' + player.modNum);
+	console.log('press!' + event.key);
 	
-	generateBullet(player);
+	
 }
 
 testCollisionCircle = function(cir1, cir2){
@@ -196,6 +227,20 @@ testCollisionCircle = function(cir1, cir2){
 		&& cir2.x <= cir1.x+cir1.radius
 		&& cir1.y <= cir2.y+cir2.radius
 		&& cir2.y <= cir1.y+cir1.radius
+}
+
+updatePlayerPosition = function(){
+
+	if(player.pressingRight)
+		player.x +=10;
+	if(player.pressingLeft)
+		player.x -=10;
+		
+	if(player.x < 0)
+		player.x = 0;
+	if(player.x > WIDTH - player.width)
+		player.x = WIDTH - player.width;
+	
 }
 
 startNewGame = function(){
