@@ -8,8 +8,8 @@ var HEIGHT = 800;
 var WIDTH = 500;
 
 var player;
-var enemy;
 
+var enemyList = {};
 var bulletList = {};
 
 createPlayer = function(){
@@ -24,14 +24,17 @@ createPlayer = function(){
 	};
 }
 
-createEnemy = function(){
+Enemy = function(x,y,radius,number){
 
-	enemy = {
-		x:225,
-		y:200,
-		radius:50,
-		number:9,
+	var enemy = {
+		id:Math.random(),
+		x:x,
+		y:y,
+		radius:radius,
+		number:number,
 	};
+	
+	enemyList[enemy.id] = enemy;
 }
 
 Bullet = function(x,y,spdX,spdY,radius,number){
@@ -49,6 +52,11 @@ Bullet = function(x,y,spdX,spdY,radius,number){
 	bulletList[bullet.id] = bullet;
 }
 
+generateEnemy = function(x,y,radius,number){
+
+	Enemy(x,y,radius,number);
+}
+
 generateBullet = function(actor){
 
 	Bullet(actor.x, actor.y, 0, -15, 50, actor.modNum);
@@ -59,7 +67,6 @@ update = function(){
 
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
 	updatePlayer();
-	updateEnemy();
 	
 	for(var key in bulletList)
 	{
@@ -67,22 +74,28 @@ update = function(){
 		
 		var toRemove = false;
 		
-		if(testCollisionCircle(enemy, bulletList[key]))
-		{
-			console.log("colliding! " + bulletList[key].number);
-			enemy.number = enemy.number % bulletList[key].number;
-			toRemove = true;
-		}
-		
 		if(bulletList[key].y < 0)
 		{
 			console.log("out of bounds " + bulletList[key].number);
 			toRemove = true;
 		}
 		
+		for(var key2 in enemyList){
+			if(testCollisionCircle(enemyList[key2], bulletList[key]))
+			{
+				console.log("colliding! " + bulletList[key].number);
+				enemyList[key2].number = enemyList[key2].number % bulletList[key].number;
+				toRemove = true;
+			}
+		}
+		
 		if(toRemove){
 			delete bulletList[key];
 		}
+	}
+	
+	for(var key in enemyList){
+		updateEnemy(enemyList[key]);
 	}
 }
 
@@ -92,8 +105,8 @@ updatePlayer = function(){
 	
 }
 
-updateEnemy = function(){
-	drawEnemy();
+updateEnemy = function(enemy){
+	drawEnemy(enemy);
 }
 
 updateBullet = function(bullet){
@@ -109,14 +122,14 @@ drawPlayer = function(){
 
 }
 
-drawEnemy = function(){
+drawEnemy = function(enemy){
 
 	var text = enemy.number;
 	var width = ctx.measureText(text).width;
 	ctx.fillText(text, enemy.x-(width/2), enemy.y+20);
 	
 	ctx.beginPath();
-	ctx.arc(enemy.x, enemy.y, 50, 0, 2*Math.PI);
+	ctx.arc(enemy.x, enemy.y, enemy.radius, 0, 2*Math.PI);
 	ctx.closePath();
 	ctx.stroke();
 }
@@ -187,7 +200,11 @@ testCollisionCircle = function(cir1, cir2){
 
 startNewGame = function(){
 	createPlayer();
-	createEnemy();
+	generateEnemy(225, 200, 50, 9);
+	generateEnemy(325, 300, 50, 4);
+	generateEnemy(425, 400, 50, 24);
+	generateEnemy(125, 500, 50, 7);
+	generateEnemy(95, 300, 50, 4);
 }
 
 startNewGame();
