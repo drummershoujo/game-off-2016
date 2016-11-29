@@ -8,7 +8,9 @@ ctx.font = '60px Courier New';
 
 var HEIGHT = 800;
 var WIDTH = 500;
+var timeWhenGameStarted = Date.now();
 
+var frameCount = 0;
 var score = 0;
 var player;
 
@@ -63,18 +65,71 @@ generateEnemy = function(x,y,radius,number){
 	Enemy(x,y,radius,number);
 }
 
+randomlyGenerateEnemy = function(minimum, maximum){
+	var radius = 50;
+	
+	var x = Math.random()*WIDTH;
+	if(x < radius){
+		x = radius;
+	}
+	if(x > WIDTH - radius){
+		x = WIDTH - radius;
+	}
+		
+	var y = 0 - radius;
+	
+	//http://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range	
+	var number;
+	number = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+	generateEnemy(x, y, radius, number);
+}
+
 generateBullet = function(actor){
 
 	Bullet(actor.x, actor.y, 0, -15, 50, actor.modNum);
-	//Bullet(100, actor.y, 0, -15, 50, actor.modNum);
 }
 
 // UPDATE LOOP
 update = function(){
 
+	// Clear screen to prep for new draw and advance frame count
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
+	frameCount++;
+	
+	// Randomly add new enemies
+	if(frameCount % 100 === 0) // Every 4 seconds -> 40ms * 100 frames = 4000ms
+	{
+		randomlyGenerateEnemy(2,9);
+	}
+	
+	var timeSurvived = Date.now() - timeWhenGameStarted;
+	
+	if(timeSurvived > 30000) // If has survived longer than 30 seconds
+	{
+		if(frameCount % 100 === 0) // Every 4 seconds -> 40ms * 100 frames = 4000ms
+		{
+			randomlyGenerateEnemy(10,99);
+		}
+	}
+	
+	if(timeSurvived > 120000) // If has survived longer than 2 minutes
+	{	
+		if(frameCount % 200 === 0) // Every 8 seconds -> 40ms * 200 frames = 8000ms
+		{
+			randomlyGenerateEnemy(100,299);
+		}
+	}
+	
+	if(timeSurvived > 180000) // If has survived longer than 3 minutes
+	{	
+		if(frameCount % 200 === 0) // Every 8 seconds -> 40ms * 200 frames = 8000ms
+		{
+			randomlyGenerateEnemy(300,499);
+		}
+	}
 	
 	
+	// Check for bullet collisions with enemies
 	for(var key in bulletList)
 	{
 		updateBullet(bulletList[key]);
@@ -296,14 +351,10 @@ updateEnemyPosition = function(enemy){
 
 startNewGame = function(){
 	createPlayer();
-	generateEnemy(225, 100, 50, 9);
-	generateEnemy(325, 200, 50, 14);
-	generateEnemy(425, 300, 50, 231);
-	generateEnemy(125, 500, 50, 7);
-	generateEnemy(95, 300, 50, 114);
-	generateEnemy(295, 300, 50, 114);
-	generateEnemy(95, 700, 50, 125);
-	generateEnemy(195, 700, 50, 125);
+	timeWhenGameStarted = Date.now();
+	score = 0;
+	enemyList = {};
+	bulletList = {};
 }
 
 startNewGame();
