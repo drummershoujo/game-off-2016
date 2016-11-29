@@ -177,7 +177,7 @@ update = function(){
 	
 	if(player.hp <= 0)
 	{		
-		alert("You lost!\nScore: "+ score + "\nClick OK to restart.");
+		timeSurvived = Date.now() - timeWhenGameStarted;
 		startNewGame();
 	}
 	
