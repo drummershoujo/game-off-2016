@@ -260,39 +260,48 @@ document.onkeyup = function(event){
 	player.pressingKey = false;
 		
 	switch(event.which || event.keyCode){
-		case 49 || 97:
+		case 49: 
+		case 97:
 			player.modNum = 1;
 			generateBullet(player);
 			break;
-		case 50 || 98:
+		case 50:
+		case 98:
 			player.modNum = 2;
 			generateBullet(player);
 			break;
-		case 51 || 99:
+		case 51:
+		case 99:
 			player.modNum = 3;
 			generateBullet(player);
 			break;
-		case 52 || 100:
+		case 52:
+		case 100:
 			player.modNum = 4;
 			generateBullet(player);
 			break;
-		case 53 || 101:
+		case 53:
+		case 101:
 			player.modNum = 5;
 			generateBullet(player);
 			break;
-		case 54 || 102:
+		case 54:
+		case 102:
 			player.modNum = 6;
 			generateBullet(player);
 			break;
-		case 55 || 103:
+		case 55:
+		case 103:
 			player.modNum = 7;
 			generateBullet(player);
 			break;
-		case 56 || 104:
+		case 56:
+		case 104:
 			player.modNum = 8;
 			generateBullet(player);
 			break;
-		case 57 || 105:
+		case 57:
+		case 105:
 			player.modNum = 9;
 			generateBullet(player);
 			break;
@@ -304,8 +313,6 @@ document.onkeyup = function(event){
 		case 65: //a
 			player.pressingLeft = false;
 			break;
-		default:
-			startNewGame();
 	}	
 	
 	console.log('press!' + event.key);
