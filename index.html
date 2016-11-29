@@ -73,7 +73,7 @@ generateBullet = function(actor){
 update = function(){
 
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
-	updatePlayer();
+	
 	
 	for(var key in bulletList)
 	{
@@ -114,10 +114,19 @@ update = function(){
 		updateEnemy(enemyList[key]);
 		if(enemyList[key].y > HEIGHT - enemyList[key].radius)
 		{
-			player.hp -= enemyList[key].number;
+			var damage = enemyList[key].number;
 			delete enemyList[key];
+			player.hp -= damage;
 		}
 	}
+	
+	if(player.hp <= 0)
+	{		
+		alert("You lost!\nScore: "+ score + "\nClick OK to restart.");
+		startNewGame();
+	}
+	
+	updatePlayer();
 	
 	ctx.save();
 	ctx.font = '20px Courier New';
@@ -292,6 +301,9 @@ startNewGame = function(){
 	generateEnemy(425, 300, 50, 231);
 	generateEnemy(125, 500, 50, 7);
 	generateEnemy(95, 300, 50, 114);
+	generateEnemy(295, 300, 50, 114);
+	generateEnemy(95, 700, 50, 125);
+	generateEnemy(195, 700, 50, 125);
 }
 
 startNewGame();
