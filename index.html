@@ -83,6 +83,8 @@ randomlyGenerateEnemy = function(minimum, maximum){
 	//http://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range	
 	var number;
 	number = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+	
+	// Check if prime
 	for(var key in primeList){
 		if(primeList[key] === number){
 			number++;
