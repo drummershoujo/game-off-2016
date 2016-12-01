@@ -15,7 +15,7 @@ Use slicers with numbers that divide evenly into the attacking pizzas to stop th
 If there is a remainder after you divide, the pizza will not be destroyed and will come at you faster. See how long you can hold them off!
 
 ## How to Run
-Open index.html in a web browser.
+Open index.html in a web browser. OR go to http://charlenejeune.com/maudespizzashop/index.html
 
 
 ## How to Play
