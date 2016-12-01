@@ -1,13 +1,3 @@
-# GitHub Game Off 2016
-
-![GitHub Game Off 2016 Theme is Hacking, Modding, or Augmenting](https://cloud.githubusercontent.com/assets/121322/19498019/d8827370-9543-11e6-82d8-6da822b6147b.png)
-
-<div align="right">
-  <sup>
-    <a href="#the-challenge">English</a>
-  </sup>
-</div>
-
 ## Maude's Pizza Shop
 <img src="https://raw.github.com/drummershoujo/game-off-2016/master/gameScreenshot.PNG" height="400">
 
@@ -38,3 +28,7 @@ Open index.html in a web browser. OR go to http://charlenejeune.com/maudespizzas
 ## Author Contact Info
 * http://twitter.com/charlenejeune
 * http://www.charlenejeune.com
+
+# GitHub Game Off 2016
+
+![GitHub Game Off 2016 Theme is Hacking, Modding, or Augmenting](https://cloud.githubusercontent.com/assets/121322/19498019/d8827370-9543-11e6-82d8-6da822b6147b.png)
