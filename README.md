@@ -1,4 +1,4 @@
-## Maude's Pizza Shop
+# Maude's Pizza Shop
 <img src="https://raw.github.com/drummershoujo/game-off-2016/master/gameScreenshot.PNG" height="400">
 
 You are Maude, owner of Maude's Pizza Shop! Your pizzas do not want to be eaten and are fighting back! 
