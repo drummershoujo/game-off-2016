@@ -17,6 +17,8 @@ var player;
 var enemyList = {};
 var bulletList = {};
 
+var primeList = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293];
+
 createPlayer = function(){
 
 	player = {
@@ -81,6 +83,12 @@ randomlyGenerateEnemy = function(minimum, maximum){
 	//http://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range	
 	var number;
 	number = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+	for(var key in primeList){
+		if(primeList[key] === number){
+			number++;
+			break;
+		}
+	}
 	generateEnemy(x, y, radius, number);
 }
 
@@ -99,7 +107,7 @@ update = function(){
 	// Randomly add new enemies
 	if(frameCount % 100 === 0) // Every 4 seconds -> 40ms * 100 frames = 4000ms
 	{
-		randomlyGenerateEnemy(2,9);
+		randomlyGenerateEnemy(4,9);
 	}
 	
 	var timeSurvived = Date.now() - timeWhenGameStarted;
@@ -119,12 +127,11 @@ update = function(){
 			randomlyGenerateEnemy(100,299);
 		}
 	}
-	
-	if(timeSurvived > 180000) // If has survived longer than 3 minutes
+	else if(timeSurvived > 180000) // If has survived longer than 3 minutes
 	{	
-		if(frameCount % 200 === 0) // Every 8 seconds -> 40ms * 200 frames = 8000ms
+		if(frameCount % 100 === 0) // Every 4 seconds -> 40ms * 100 frames = 4000ms
 		{
-			randomlyGenerateEnemy(300,499);
+			randomlyGenerateEnemy(100,299);
 		}
 	}
 	
@@ -178,7 +185,7 @@ update = function(){
 	if(player.hp <= 0)
 	{		
 		timeSurvived = Date.now() - timeWhenGameStarted;
-		alert("You lost!\nScore: "+ score + "\nTime: " + Math.round(timeSurvived/1000) +" seconds\nClick OK to restart.");
+		alert("Game Over!\nScore: "+ score + "\nTime: " + Math.round(timeSurvived/1000) +" seconds\nClick OK to restart.");
 		startNewGame();
 	}
 	
@@ -260,11 +267,6 @@ document.onkeyup = function(event){
 	player.pressingKey = false;
 		
 	switch(event.which || event.keyCode){
-		case 49: 
-		case 97:
-			player.modNum = 1;
-			generateBullet(player);
-			break;
 		case 50:
 		case 98:
 			player.modNum = 2;
