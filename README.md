@@ -10,7 +10,7 @@
 </div>
 
 ## Maude's Pizza Shop
-(images/gamescreenshot.png)
+![Screenshot](https://raw.github.com/drummershoujo/game-off-2016/blob/master/gameScreenshot.PNG)
 You are Maude, owner of Maude's Pizza Shop! Your pizzas do not want to be eaten and are fighting back! 
 Use slicers with numbers that divide evenly into the attacking pizzas to stop them. 
 If there is a remainder after you divide, the pizza will not be destroyed and will come at you faster. See how long you can hold them off!
