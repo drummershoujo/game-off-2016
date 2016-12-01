@@ -33,5 +33,5 @@ Open index.html in a web browser.
 * Maude is the owner of the pizza shop!
 
 ## Author Contact Info
-* twitter.com/charlenejeune
+* http://twitter.com/charlenejeune
 * http://www.charlenejeune.com
