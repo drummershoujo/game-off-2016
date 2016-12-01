@@ -4,13 +4,13 @@
 
 <div align="right">
   <sup>
-    <a href="#the-challenge">English</a> ·
-    <a href="#お題">日本語</a>
+    <a href="#the-challenge">English</a>
   </sup>
 </div>
 
 ## Maude's Pizza Shop
-![Screenshot](https://raw.github.com/drummershoujo/game-off-2016/blob/master/gameScreenshot.PNG)
+<img src="https://raw.github.com/drummershoujo/game-off-2016/master/gameScreenshot.PNG" height="400">
+
 You are Maude, owner of Maude's Pizza Shop! Your pizzas do not want to be eaten and are fighting back! 
 Use slicers with numbers that divide evenly into the attacking pizzas to stop them. 
 If there is a remainder after you divide, the pizza will not be destroyed and will come at you faster. See how long you can hold them off!
