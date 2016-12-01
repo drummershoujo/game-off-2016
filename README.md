@@ -25,7 +25,7 @@ Open index.html in a web browser.
 * **To throw a numbered slicer**: Press a number on your keyboard. Any number works except 1. (So 2 - 9 are valid).
 * **To move**: Use 'A' or left arrow to move left, 'D' or right arrow to move right.
 
-* Losing health: When pizzas hit your side, you will lose health.
-* Gaining points: 
+* **Losing health**: When pizzas hit your side, you will lose health.
+* **Gaining points**: 
    * When you hit a pizza and successfully destroy it, you will gain points.
    * When you hit a pizza and leave a remainder, you get no points. You can attack the remainder as you would a regular pizza.
