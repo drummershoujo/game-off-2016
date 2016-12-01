@@ -27,3 +27,11 @@ Open index.html in a web browser.
 * **Gaining points**: 
    * When you hit a pizza and successfully destroy it, you will gain points.
    * When you hit a pizza and leave a remainder, you get no points. You can attack the remainder as you would a regular pizza.
+   
+## How Relates to Game Off Theme
+* Modding is the core of the game! E.g. 15 % 4 = 3, so throwing a 4 slicer at a 15 pizza will create a remainder pizza of 3.
+* Maude is the owner of the pizza shop!
+
+## Author Contact Info
+* twitter.com/charlenejeune
+* http://www.charlenejeune.com
